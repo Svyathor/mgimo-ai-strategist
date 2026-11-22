@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Write|Edit", "hooks": [ { "type": "command", "command": "python .claude/hooks/quality_gate.py" } ] }
+    ],
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "python tools/sfp.py status" } ] }
+    ]
+  }
+}

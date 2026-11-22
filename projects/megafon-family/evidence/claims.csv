@@ -1,0 +1,31 @@
+id,type,statement,source,confidence,depends_on,used_in,status,note
+F-01,FACT,Доступно оператору 100 тыс. домохозяйств и 40 тыс. владельцев,inputs/brief_megafon.pdf с.3,high,,strategy.md#2.6,active,учебные числа
+F-02,FACT,Валовая прибыль: план 282 / оценка 275 / без изменений 279 / цель 285 млн,inputs/brief_megafon.pdf с.3,high,,strategy.md#0;strategy.md#4.3,active,
+F-03,FACT,Активные группы: план 5000 / оценка 4000 / без изм. 5000 / цель 8000,inputs/brief_megafon.pdf с.3,high,,strategy.md#1.2;strategy.md#4.3,active,
+F-04,FACT,Подключённые группы: 7500 / 6500 / 8000 / 12000,inputs/brief_megafon.pdf с.3,high,,strategy.md#2.6,active,
+F-05,FACT,Владельцы: 1000 / 800 / 1000 / 2000,inputs/brief_megafon.pdf с.3,high,,strategy.md#2.6,active,
+F-06,FACT,Активация 14 дней: 50% / 42% / 45% / 60%,inputs/brief_megafon.pdf с.3,high,,strategy.md#4.3,active,
+F-07,FACT,500 руб. валовой прибыли за доп. оплаченный месяц номера,inputs/brief_megafon.pdf с.9,high,,strategy.md#3.2,active,
+F-08,FACT,Организатор узнаёт о перебое лишь из просьбы о помощи,inputs/brief_megafon.pdf с.1,high,,strategy.md#0;strategy.md#1.1,active,
+F-09,FACT,Передача интернета из свободного остатка уже существует,inputs/brief_megafon.pdf с.1;с.5,high,,strategy.md#2.3,active,
+F-10,FACT,Разработчики: 3 чел.-мес. на Q2; тестирование 1 чел.-мес. не подтверждено,inputs/brief_megafon.pdf с.11,high,,strategy.md#5.1,active,
+A-02,ASSUMPTION,В семейной группе в среднем 3 номера (диапазон 2.5–3.5),,low,,tools/sfp.py SCEN,active,уточнить выгрузкой
+A-03,ASSUMPTION,Доля номеров с ограничением за 7 дней после низкого остатка 12% -> 9% (диапазон 10.5–8%),пример из inputs/brief_megafon.pdf с.7,low,G-03,tools/sfp.py SCEN;strategy.md#1.3,active,число учебное
+A-04,ASSUMPTION,Ограничение повышает месячный отток номера на +2 п.п. (1–3),,low,G-01,tools/sfp.py SCEN,active,~22% эффекта в base; проверить в Q1
+A-05,ASSUMPTION,+1500 групп сверх без изменений через канал «в момент просьбы» (500–2500),,low,H-06,tools/sfp.py SCEN;strategy.md#2.6,active,
+A-06,ASSUMPTION,10% новых участников приходят от других операторов (5–15%),,low,G-06,tools/sfp.py SCEN,active,~78% эффекта в base — главное неизвестное
+A-11,ASSUMPTION,0.25 обращения в поддержку на событие ограничения,,low,,tools/sfp.py SCEN,active,
+A-12,ASSUMPTION,Стоимость обращения 120 руб.,,low,,tools/sfp.py,active,
+A-13,ASSUMPTION,Push/SMS 0.3 руб.,,medium,,tools/sfp.py,active,
+A-14,ASSUMPTION,Человеко-месяц 0.35 млн руб.; вариант 1 ~10 чел.-мес.,,low,F-10,strategy.md#3.2;strategy.md#5.3,active,
+H-01,HYPOTHESIS,Главная причина отставания активности — низкая активация (42% vs 50%),расчёт по F-03;F-06,medium,F-03;F-06,strategy.md#1.2,active,опровергнет: активация в норме у групп Q4
+H-02,HYPOTHESIS,Предупреждение + перевод снизит долю ограничений до ≤9%,,medium,A-03;F-09,strategy.md#1.3;strategy.md#3.1,active,проверка: пилот Q2
+H-06,HYPOTHESIS,Момент просьбы о помощи — лучший момент предложить создать группу,,low,,strategy.md#2.6,active,
+P-01,FORECAST,Валовая прибыль 279.8 млн (279.1–280.9),sfp econ,medium,A-02;A-03;A-04;A-05;A-06;A-11;F-07,strategy.md#0;strategy.md#4.3,active,
+P-02,FORECAST,Цель 285 недостижима этим изменением в плановом году,sfp econ,medium,P-01;F-02,strategy.md#0;strategy.md#5.3,active,
+P-03,FORECAST,Активные группы 6365 (5440–7350),sfp econ,medium,A-05;H-01,strategy.md#4.3,active,
+D-01,DECISION,Рекомендован вариант 1: предупреждение + перевод; пилот 1200 групп,strategy.md#4.1,medium,H-02;P-01;F-10,strategy.md#0;decisions/decision-log.md,active,
+G-01,ASSUMPTION,Пробел: отток номеров с ограничением vs без — неизвестен,,low,,strategy.md#пробелы,active,
+G-06,ASSUMPTION,Пробел: доля приглашённых новых для оператора неизвестна,,low,,strategy.md#пробелы,active,
+G-03,ASSUMPTION,Пробел: структура причин перебоев неизвестна,,low,,strategy.md#пробелы,active,
+S-01,SYNTHETIC,Синтетический организатор опасается что близкие воспримут показ остатка как слежку,interviews/synthetic/2026-11-22-organizer.md,low,,strategy.md#2.3а,active,пример формата (агент); синтетика: не доказывает спрос и распространённость
